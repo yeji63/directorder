@@ -37,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
         listview.setAdapter(adapter);
 
         // 첫 번째 아이템 추가.
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_account_box_black_36dp),
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.star),
                 "Box", "Account Box Black 36dp") ;
         // 두 번째 아이템 추가.
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_account_circle_black_36dp),
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.star),
                 "Circle", "Account Circle Black 36dp") ;
         // 세 번째 아이템 추가.
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_assignment_ind_black_36dp),
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.star),
                 "Ind", "Assignment Ind Black 36dp") ;
 
         // 위에서 생성한 listview에 클릭 이벤트 핸들러 정의.
