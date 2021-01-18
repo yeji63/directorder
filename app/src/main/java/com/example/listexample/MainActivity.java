@@ -1,14 +1,15 @@
 package com.example.listexample;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,72 +19,47 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listView;
-    listAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Data> list = new ArrayList<>();
-        list.add(new Data(0,"제목1", "내용내용"));
-        list.add(new Data(0,"제목2", "내용내용"));
-        list.add(new Data(0,"제목3", "내용내용"));
-        list.add(new Data(1,"제목4", "내용내용"));
-        list.add(new Data(1,"제목5", "내용내용"));
+        ListView listview;
+        ListViewAdapter adapter;
 
-        listView = findViewById(R.id.listview);
-        adapter = new listAdapter(list);
+        // Adapter 생성
+        adapter = new ListViewAdapter() ;
 
-        listView.setAdapter(adapter);
+        // 리스트뷰 참조 및 Adapter달기
+        listview = (ListView) findViewById(R.id.listview1);
+        listview.setAdapter(adapter);
+
+        // 첫 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_account_box_black_36dp),
+                "Box", "Account Box Black 36dp") ;
+        // 두 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_account_circle_black_36dp),
+                "Circle", "Account Circle Black 36dp") ;
+        // 세 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_assignment_ind_black_36dp),
+                "Ind", "Assignment Ind Black 36dp") ;
+
+        // 위에서 생성한 listview에 클릭 이벤트 핸들러 정의.
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                // get item
+                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position) ;
+
+                String titleStr = item.getTitle() ;
+                String descStr = item.getDesc() ;
+                Drawable iconDrawable = item.getIcon() ;
+
+                // TODO : use item data.
+            }
+        }) ;
     }
 
-    class listAdapter extends BaseAdapter{
-        List<Data> lists;
-
-        public listAdapter(List<Data> lists) {
-            this.lists = lists;
-        }
-
-        @Override
-        public int getCount() {
-            return lists.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return lists.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            View v = view;
-            if(v==null){
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inflater.inflate(R.layout.list_card, null);
-            }
-
-            TextView tvTitle = v.findViewById(R.id.tv_title);
-            TextView tvContent = v.findViewById(R.id.tv_content);
-
-            Data data = lists.get(i);
-
-            tvTitle.setText(data.getTitle());
-            tvContent.setText(data.getContent());
-
-            if(data.getCategory()==0){
-                tvTitle.setBackgroundColor(Color.WHITE);
-            }else{
-                tvTitle.setBackgroundColor(Color.LTGRAY);
-            }
-
-            return v;
-        }
-    }
 }
