@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 Toast.makeText(getApplicationContext(), "리뷰가 저장되었습니다", Toast.LENGTH_LONG).show();//왜 안돼,,?
                 //textView.setText(editText.getText()); //리뷰 저장되야함. 리뷰 보기에서 볼 수 있게
-                Toast.makeText(getApplicationContext(),"complete 출력", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
